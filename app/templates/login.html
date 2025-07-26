@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}ログイン{% endblock %}
+{% block body %}
+
+    <h1>ログイン</h1>
+    <form method="POST">
+        {{ forms.hidden_tag() }}
+        {{ forms.username.label }}{{ forms.username() }}
+        {{ forms.password.label }}{{ forms.password() }}
+        {{ forms.submit() }}
+    </form>
+    {% with msg = get_flashed_messages() %}
+        {% if msg %}
+            <p>{{ msg[-1] }}</p>
+        {% endif %}
+    {% endwith %}
+
+{% endblock %}

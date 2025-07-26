@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}記録(ハリボテ){% endblock %}
+
+{% block body %}
+    <h1>まだ何もつくってないです！</h1>
+    <form method="post" action="{{ url_for('main.logout') }}">
+        <button type="submit">大人しくログアウトする</button>
+    </form>
+{% endblock %}
