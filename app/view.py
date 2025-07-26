@@ -17,15 +17,12 @@ def login():
     print("OK")
     forms = LoginForm()
     if forms.validate_on_submit():
-        print("LOGIN")
         username = forms.username.data
         password = forms.password.data
 
         if username in users and check_password_hash(users[username]["password"], password):
-            print("ログインチェックOK")
             user = User(username)
             login_user(user)
-            print("ASDF")
             return redirect(url_for("main.record"))
         else:
             flash("ユーザー名、またはパスワードが違います")
