@@ -5,6 +5,12 @@ from werkzeug.security import generate_password_hash
 class User(UserMixin):
     def __init__(self, username):
         self.id = username
+        self.is_guest = False
+
+class Guest(UserMixin):
+    def __init__(self):
+        self.id = "Guest"
+        self.is_guest = True
 
 users = {"admin": {"password": generate_password_hash("admin202507")}}
 # 一旦不使用

@@ -10,6 +10,11 @@
         {{ forms.password.label }}{{ forms.password() }}
         {{ forms.submit() }}
     </form>
+
+    <form method="POST">
+        {{ forms_guest.hidden_tag() }}
+        {{ forms_guest.submit() }}
+    </form>
     {% with msg = get_flashed_messages() %}
         {% if msg %}
             <p>{{ msg[-1] }}</p>
