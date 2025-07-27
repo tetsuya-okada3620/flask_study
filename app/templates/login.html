@@ -8,12 +8,12 @@
         {{ forms.hidden_tag() }}
         {{ forms.username.label }}{{ forms.username() }}
         {{ forms.password.label }}{{ forms.password() }}
-        {{ forms.submit() }}
+        {{ forms.submit_login() }}
     </form>
 
     <form method="POST">
         {{ forms_guest.hidden_tag() }}
-        {{ forms_guest.submit() }}
+        {{ forms_guest.submit_guest() }}
     </form>
     {% with msg = get_flashed_messages() %}
         {% if msg %}

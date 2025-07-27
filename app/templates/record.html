@@ -3,8 +3,49 @@
 {% block title %}記録(ハリボテ){% endblock %}
 
 {% block body %}
-    <h1>まだ何もつくってないです！</h1>
+    <h1>ようこそ、{{ username }}さん</h1>
+    {% if username != "Guest" %}
+        <form method="post">
+            {{ forms.hidden_tag() }}
+            {{ forms.category.label }}{{ forms.category() }}<br>
+            {{ forms.confirm.label }}{{ forms.confirm() }}<br>
+            {{ forms.study_date_start.label }}{{ forms.study_date_start() }}<br>
+            {{ forms.study_date_end.label }}{{ forms.study_date_end() }}<br>
+            {{ forms.remark.label }}{{ forms.remark() }}<br>
+            {{ forms.submit() }}
+        </form>
+    {% endif %}
+
+    <table border="1">
+        <thead>
+            <tr>
+                <td>id</td>
+                <td>カテゴリ</td>
+                <td>内容</td>
+                <td>時間</td>
+                <td>開始時刻</td>
+                <td>終了時刻</td>
+                <td>備考</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rec in records %}
+                <tr>
+                    <td>{{ rec.id }}</td>
+                    <td>{{ rec.categories.category_name }}</td>
+                    <td>{{ rec.confirm }}</td>
+                    <td>{{ rec.duration }}</td>
+                    <td>{{ rec.study_date_start }}</td>
+                    <td>{{ rec.study_date_end }}</td>
+                    <td>{{ rec.remark }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
     <form method="post" action="{{ url_for('main.logout') }}">
         <button type="submit">大人しくログアウトする</button>
     </form>
+
+    
 {% endblock %}

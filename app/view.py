@@ -1,7 +1,8 @@
 from app.extensions import db, login_manager
-from app.forms import LoginForm, GuestForm
-from app.models import User, Guest, AccountInfo, users
+from app.forms import LoginForm, GuestForm, RecordForm
+from app.models import User, Guest, Records, Categories, AccountInfo, users
 from flask_login import login_required, login_user, logout_user, current_user
+from sqlalchemy import select
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from werkzeug.security import check_password_hash
 
@@ -21,13 +22,14 @@ def login():
     forms = LoginForm()
     forms_guest = GuestForm()
 
-    if forms_guest.validate_on_submit():
+    if forms_guest.submit_guest.data and forms_guest.validate_on_submit():
         print("OK")
         guest = Guest()
         login_user(guest)
         return redirect(url_for("main.record"))
 
-    if forms.validate_on_submit():
+    if forms.submit_login.data and forms.validate_on_submit():
+        print("ACCOUNT")
         username = forms.username.data
         password = forms.password.data
 
@@ -44,7 +46,12 @@ def login():
 @main.route("/record")
 def record():
     print("record.htmlを開く")
-    return render_template("record.html", username=current_user.id)
+    forms = RecordForm()
+    
+    smtm = select(Records)
+    record = db.session.execute(smtm).fetchall()
+
+    return render_template("record.html", username=current_user.id, forms=forms, record=record)
 
 @login_required
 @main.route("/logout", methods=["POST"])
