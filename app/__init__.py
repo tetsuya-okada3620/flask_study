@@ -8,7 +8,6 @@ def create_app():
 
     load_dotenv("config.env")
     app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
-    # app.config["SQLALCHEMY_DATABASE_URI"] ="postgresql://nemui3620:8pweKIdOvLU8QAv6EV7AIBIQYuVssRUp@dpg-d22cns2dbo4c73f32nmg-a/study_record"
     
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.secret_key = os.getenv("SECRET_KEY")
